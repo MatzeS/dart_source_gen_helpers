@@ -5,25 +5,14 @@ import 'package:source_gen/source_gen.dart';
 import 'dart:async';
 import 'class_visitor.dart';
 
-class ClassOutputVisitor implements ElementVisitor<Future<void>> {
+/// Wrapps a class visitor and accumulates its outputs in a buffer
+class OutputClassVisitor implements ElementVisitor<Future<void>> {
   ClassVisitor delegate;
-  ClassOutputVisitor(this.delegate);
+  OutputClassVisitor(this.delegate);
 
   StringBuffer _buffer = new StringBuffer();
-  get output async {
-    return (await delegate.classDeclaration.future) +
-        '{' +
-        _buffer.toString() +
-        '}';
-  }
-
-  Future<void> visitElements(List<Element> elements) async {
-    List<Future<void>> accepted = elements
-        .where((e) => e is! ClassMemberElement || delegate.where(e))
-        .map((e) => e.accept(this))
-        .toList();
-    return await Future.wait(accepted);
-  }
+  get output async =>
+      (await delegate.classDeclaration) + '{' + _buffer.toString() + '}';
 
   @override
   visitClassElement(ClassElement element) async =>

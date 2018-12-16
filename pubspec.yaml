@@ -1,6 +1,7 @@
-name: source_gen_class_visitor
+name: source_gen_helpers
 version: 0.0.1
-description: >
+description: > 
+  Some helper classes and fuctions for standard code generation patterns.
 authors:
 - Matthias Sokolowski <matthias.sokolowski@googlemail.com>
 

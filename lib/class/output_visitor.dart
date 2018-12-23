@@ -7,7 +7,7 @@ import 'class_visitor.dart';
 
 /// Wrapps a class visitor and accumulates its outputs in a buffer
 class OutputClassVisitor implements ElementVisitor<Future<void>> {
-  ClassVisitor delegate;
+  ClassVisitor<FutureOr<String>> delegate;
   OutputClassVisitor(this.delegate);
 
   StringBuffer _buffer = new StringBuffer();

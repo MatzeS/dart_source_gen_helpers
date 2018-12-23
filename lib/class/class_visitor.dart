@@ -6,7 +6,8 @@ import 'dart:async';
 import 'output_visitor.dart';
 
 /// Generating code by visiting a class and its elements
-abstract class ClassVisitor extends ThrowingElementVisitor<FutureOr<String>> {
+abstract class ClassVisitor<T> extends ThrowingElementVisitor<T>
+    with VisitingStrategies<T> {
   final Completer<ClassElement> classElementCompleter = new Completer();
   final Completer<String> classDeclarationCompleter = new Completer();
   Future<ClassElement> get classElement => classElementCompleter.future;
@@ -15,8 +16,24 @@ abstract class ClassVisitor extends ThrowingElementVisitor<FutureOr<String>> {
   get className async => (await classElement).name;
 
   @override
-  FutureOr<String> visitClassElement(ClassElement element) {
+  visitClassElement(ClassElement element) {
     classElementCompleter.complete(element);
-    return '';
+    return null;
   }
+}
+
+mixin VisitingStrategies<T> implements ElementVisitor<T> {
+  visitAll(List<Element> elements) => elements.map((e) => e.accept(this));
+
+  visitDirectExecutables(ClassElement element) => <ExecutableElement>[]
+      .followedBy(element.accessors)
+      .followedBy(element.methods)
+      .map((e) => e.accept(this));
+
+  visitAllExecutables(ClassElement element) => <ExecutableElement>[]
+      .followedBy(element.accessors)
+      .followedBy(element.methods)
+      .followedBy(element.allSupertypes.expand((e) => e.accessors))
+      .followedBy(element.allSupertypes.expand((e) => e.methods))
+      .map((e) => e.accept(this));
 }

@@ -40,5 +40,5 @@ main() {
     test('number of children, PartiallyImplemented', () async {
       expect(allClassChildren(classElements['PartiallyImplemented']).length, 2);
     });
-  }, tags: 'current');
+  });
 }

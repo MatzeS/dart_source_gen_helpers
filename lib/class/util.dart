@@ -30,16 +30,36 @@ List<Element> allClassMember(ClassElement element) {
   return elements;
 }
 
+List<ExecutableElement> allExecutables(ClassElement element) {
+  List<ExecutableElement> elements = [];
+  elements.addAll(element.allSupertypes
+      .map((e) => e.accessors)
+      .fold<List<ExecutableElement>>([], (a, b) {
+    a.addAll(b);
+    return a;
+  }));
+  elements.addAll(element.allSupertypes
+      .map((e) => e.methods)
+      .fold<List<ExecutableElement>>([], (a, b) {
+    a.addAll(b);
+    return a;
+  }).toList());
+  elements.addAll(element.methods);
+  elements.addAll(element.accessors);
+  elements.addAll(element.constructors);
+  return elements;
+}
+
 Future<void> visitElements(
     ElementVisitor<Future<void>> visitor, List<Element> elements) async {
   List<Future<void>> accepted = elements.map((e) => e.accept(visitor)).toList();
   return await Future.wait(accepted);
 }
 
-List<Element> filterConcreteElements(
-    ClassElement classElement, List<Element> elements) {
+List<T> filterConcreteElements<T extends Element>(
+    ClassElement classElement, List<T> elements) {
   return elements.where((e) {
-    List<Element> equalDeclarations =
+    List<T> equalDeclarations =
         elements.where((e2) => e.toString() == e2.toString()).toList();
     if (equalDeclarations.isEmpty || equalDeclarations.length == 1) return true;
 

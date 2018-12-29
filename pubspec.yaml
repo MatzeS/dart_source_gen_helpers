@@ -1,18 +1,21 @@
 name: source_gen_helpers
 version: 0.0.1
 description: > 
-  Some helper fuctions for standard code generation patterns.
+  Helper functions for standard code generation patterns.
+website: https://github.com/MatzeS/dart_source_gen_helpers
 authors:
 - Matthias Sokolowski <matthias.sokolowski@googlemail.com>
 
 environment:
   sdk: '>=2.0.0-dev <3.0.0'
   
-dev_dependencies:
-  analyzer:
-  build: 
-  build_config: 
-  source_gen: 
-  build_runner: 
-  build_test:
-  test: 
+dependencies:
+  analyzer: ^0.33.6
+  build: ^1.0.2
+  build_config: ^0.3.1
+  source_gen: ^0.9.2
+  build_runner: ^1.1.2
+  build_test: ^0.10.4
+  test: ^1.5.1
+  
+  

@@ -2,7 +2,7 @@ name: source_gen_helpers
 version: 0.0.1
 description: > 
   Helper functions for standard code generation patterns.
-website: https://github.com/MatzeS/dart_source_gen_helpers
+homepage: https://github.com/MatzeS/dart_source_gen_helpers
 authors:
 - Matthias Sokolowski <matthias.sokolowski@googlemail.com>
 

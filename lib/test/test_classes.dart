@@ -1,3 +1,5 @@
+/// Some example classes code generation may be tested against
+
 class EmptyClass {}
 
 class FullClass {

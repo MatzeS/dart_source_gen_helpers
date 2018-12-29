@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
+/// Similar to AnnotationGenerator but allows custom filter implementation
 abstract class FilterGenerator extends Generator {
   BuilderOptions options;
   FilterGenerator(this.options);

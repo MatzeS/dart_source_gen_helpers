@@ -28,6 +28,7 @@ class ClassElementProvider extends Generator {
   }
 }
 
+/// Helper class to test code generation
 class Generation {
   var cep = new ClassElementProvider();
   Map<String, ClassElement> get classElements => cep.classElements;

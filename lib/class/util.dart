@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 
 List<Element> allClassChildren(ClassElement classElement) {
   List<Element> result = [];
@@ -79,4 +80,17 @@ bool isConcrete(ExecutableElement e, ClassElement ce) {
   ce.allSupertypes.map((st) => st.methods).forEach(list.addAll);
   ce.allSupertypes.map((st) => st.accessors).forEach(list.addAll);
   return list.any((c) => c.name == e.name && !c.isAbstract);
+}
+
+List<ElementAnnotation> classHierarchyMetadata(ClassElement element) {
+  List<InterfaceType> typeList = [];
+  typeList.add(element.type);
+  typeList.addAll(element.allSupertypes);
+
+  return typeList
+      .map((t) => t.element.metadata)
+      .fold(new List<ElementAnnotation>(), (a, b) {
+    a.addAll(b);
+    return a;
+  }).toList();
 }

@@ -61,14 +61,22 @@ String generateDeclaration(ExecutableElement element) {
   } else {
     output.write(element.returnType.toString() + ' ');
   }
+  if (element.isOperator) {
+    output.write('operator ');
+  }
   if (isGetter) output.write(' get ');
   output.write(element.displayName);
+  if (element.typeParameters.isNotEmpty) {
+    output.write('<');
+    output.write(element.typeParameters.map((p) => p.name).join(","));
+    output.write('>');
+  }
   if (!isGetter) {
     output.write(' ( ');
     output.write(argumentDeclarations);
     output.write(' ) ');
   }
-  output.write(element.isAsynchronous ? ' async ' : '');
+  output.write(element.isAsynchronous && !element.isGenerator ? ' async ' : '');
   return output.toString();
 }
 
@@ -80,7 +88,7 @@ String generateArgumentDeclarations(ExecutableElement element) {
     log.severe('named and positional arguments $element');
   }
   String argumentEncoder(Iterable<ParameterElement> elements) =>
-      elements.map((p) => '${p.type.name} ${p.name}').join(', ');
+      elements.map((p) => '${p.type.element.name} ${p.name}').join(', ');
   String declarationRequiredArguments =
       argumentEncoder(element.parameters.where((p) => p.isNotOptional));
   String declarationPositionalArguments = argumentEncoder(

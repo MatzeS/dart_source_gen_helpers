@@ -1,5 +1,5 @@
 name: source_gen_helpers
-version: 0.0.1
+version: 0.0.2
 description: > 
   Helper functions for standard code generation patterns.
 homepage: https://github.com/MatzeS/dart_source_gen_helpers

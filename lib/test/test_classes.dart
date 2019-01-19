@@ -27,10 +27,10 @@ abstract class FullAbstractClass {
 class FullAbstractImplemented extends FullAbstractClass {
   void simpleMethod() {}
   void otherMethod() {}
-  num get aGetter {}
+  num get aGetter => -1;
   set aSetter(num arg) {}
   set aPair(num a) {}
-  num get aPair {}
+  num get aPair => -1;
 }
 
 abstract class PartiallyImplemented extends FullAbstractClass {

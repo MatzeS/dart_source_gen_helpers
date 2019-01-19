@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:test/test.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen_helpers/test/generation.dart';
